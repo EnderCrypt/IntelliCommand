@@ -16,6 +16,7 @@ public class Main
 
 		Map<String, Object> bundle = new HashMap<>();
 		bundle.put("key", new Point(25, 0));
+
 		commandManager.trigger(bundle, "send message 67");
 	}
 }

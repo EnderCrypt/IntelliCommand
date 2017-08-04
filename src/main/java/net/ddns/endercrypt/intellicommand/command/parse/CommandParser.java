@@ -105,7 +105,7 @@ public class CommandParser
 		throw new IllegalArgumentException("couldnt find " + CommandParam.class.getSimpleName() + "(\"" + name + "\")");
 	}
 
-	public Class<?> filterPrimitiveType(Class<?> clazz)
+	public static Class<?> filterPrimitiveType(Class<?> clazz)
 	{
 		/*
 		java.lang.Boolean#TYPE
