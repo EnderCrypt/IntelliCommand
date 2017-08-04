@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandException;
+import net.ddns.endercrypt.intellicommand.mapper.common.BooleanMapper;
 import net.ddns.endercrypt.intellicommand.mapper.common.DoubleMapper;
 import net.ddns.endercrypt.intellicommand.mapper.common.IntegerMapper;
 import net.ddns.endercrypt.intellicommand.mapper.common.StringMapper;
@@ -15,6 +16,7 @@ public class Mappers
 		register(String.class, new StringMapper());
 		register(Integer.class, new IntegerMapper());
 		register(Double.class, new DoubleMapper());
+		register(Boolean.class, new BooleanMapper());
 	}
 
 	public Mappers()
