@@ -1,4 +1,4 @@
-package net.ddns.endercrypt.intellicommand.command;
+package net.ddns.endercrypt.intellicommand.bundle;
 
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

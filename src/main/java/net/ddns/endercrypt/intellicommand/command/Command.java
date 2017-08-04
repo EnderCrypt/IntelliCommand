@@ -6,6 +6,7 @@ import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.Map;
 
+import net.ddns.endercrypt.intellicommand.bundle.Bundle;
 import net.ddns.endercrypt.intellicommand.command.parse.CommandParser;
 import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
 import net.ddns.endercrypt.intellicommand.mapper.Mappers;
@@ -29,7 +30,7 @@ public class Command implements Comparable<Command>
 		parameters = method.getParameters();
 	}
 
-	public Object[] obtainArguments(Mappers mappers, String[] args, Map<String, Object> bundle)
+	public Object[] obtainArguments(Mappers mappers, String[] args, Bundle bundle)
 	{
 		CommandParser parser = new CommandParser(mappers, args, commandArgs, parameters, bundle);
 		try

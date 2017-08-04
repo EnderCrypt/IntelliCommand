@@ -1,6 +1,5 @@
 package test;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -12,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
 import net.ddns.endercrypt.intellicommand.IntelliCommandManager;
+import net.ddns.endercrypt.intellicommand.bundle.Bundle;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandNotFound;
 import net.ddns.endercrypt.intellicommand.exception.MalformedArgumentException;
 
@@ -24,7 +24,7 @@ public class TestUnit
 	private static IntelliCommandManager commandManager;
 	private static TestUnitCommands TestUnitCommands;
 
-	private Map<String, Object> bundle;
+	private Bundle bundle;
 
 	@BeforeClass
 	public static void beforeClass()
@@ -39,13 +39,12 @@ public class TestUnit
 	@Before
 	public void before()
 	{
-		bundle = new HashMap<>();
+		bundle = new Bundle();
 	}
 
 	@After
 	public void after()
 	{
-		bundle.clear();
 		TestUnitCommands.clearResults();
 	}
 

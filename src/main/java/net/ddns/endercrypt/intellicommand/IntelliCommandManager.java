@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import net.ddns.endercrypt.intellicommand.bundle.Bundle;
 import net.ddns.endercrypt.intellicommand.command.Command;
 import net.ddns.endercrypt.intellicommand.command.Priority;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandException;
@@ -121,7 +123,7 @@ public class IntelliCommandManager
 		return args.toArray(new String[args.size()]);
 	}
 
-	public void trigger(Map<String, Object> bundle, String stringCommand)
+	public void trigger(Bundle bundle, String stringCommand)
 	{
 		String[] args = split(stringCommand);
 

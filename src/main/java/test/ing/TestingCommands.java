@@ -3,26 +3,15 @@ package test.ing;
 import java.awt.Point;
 
 import net.ddns.endercrypt.intellicommand.CommandPath;
-import net.ddns.endercrypt.intellicommand.command.Include;
-import net.ddns.endercrypt.intellicommand.command.Priority;
+import net.ddns.endercrypt.intellicommand.bundle.Include;
 import net.ddns.endercrypt.intellicommand.command.CommandParam;
 
-@CommandPath("send")
+@CommandPath("tell")
 public class TestingCommands
 {
-	@Priority(1)
-	@CommandPath("message {number}")
-	public void message(@Include("key") Point key, @CommandParam("number") int text)
+	@CommandPath("hello {arg}")
+	public void user1(@CommandParam("arg") String text, @Include("POINT") Point point)
 	{
-		System.out.println("KEY: " + key);
-		System.out.println("NUMBER: " + text);
-	}
-
-	@Priority(0)
-	@CommandPath("message {text}")
-	public void message(@Include("key") Point key, @CommandParam("text") String text)
-	{
-		System.out.println("KEY: " + key);
-		System.out.println("TEXT: " + text);
+		System.out.println("POINT: " + point + " said: " + text);
 	}
 }

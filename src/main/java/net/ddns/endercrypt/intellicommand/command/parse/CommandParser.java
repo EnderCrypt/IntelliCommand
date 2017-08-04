@@ -1,10 +1,9 @@
 package net.ddns.endercrypt.intellicommand.command.parse;
 
 import java.lang.reflect.Parameter;
-import java.util.Map;
-
+import net.ddns.endercrypt.intellicommand.bundle.Bundle;
+import net.ddns.endercrypt.intellicommand.bundle.Include;
 import net.ddns.endercrypt.intellicommand.command.CommandParam;
-import net.ddns.endercrypt.intellicommand.command.Include;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandException;
 import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
 import net.ddns.endercrypt.intellicommand.mapper.Mappers;
@@ -19,7 +18,7 @@ public class CommandParser
 
 	private Object[] returnArgs;
 
-	public CommandParser(Mappers mappers, String[] args, String[] commandArgs, Parameter[] parameters, Map<String, Object> bundle)
+	public CommandParser(Mappers mappers, String[] args, String[] commandArgs, Parameter[] parameters, Bundle bundle)
 	{
 		this.mappers = mappers;
 
@@ -37,7 +36,7 @@ public class CommandParser
 			if (bundleAnnotation != null)
 			{
 				String name = bundleAnnotation.value();
-				Object bundleValue = bundle.get(name);
+				Object bundleValue = bundle.check(name);
 
 				if (bundleValue != null)
 				{
