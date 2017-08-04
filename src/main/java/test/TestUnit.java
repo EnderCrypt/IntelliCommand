@@ -13,6 +13,7 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 
 import net.ddns.endercrypt.intellicommand.IntelliCommandManager;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandNotFound;
+import net.ddns.endercrypt.intellicommand.exception.MalformedArgumentException;
 
 import static org.junit.Assert.*;
 
@@ -137,7 +138,7 @@ public class TestUnit
 		assertEquals(TestUnitCommands.getResult("overload1_boolean").get("overload1_boolean"), bool);
 	}
 
-	// MISSING
+	// MISSING //
 
 	@Test(expected = IntelliCommandNotFound.class)
 	public void missing_command()
@@ -150,4 +151,22 @@ public class TestUnit
 	{
 		commandManager.trigger(bundle, "test missing1 test");
 	}
+
+	// QUOTES //
+
+	@Test(expected = MalformedArgumentException.class)
+	public void quote_1()
+	{
+		commandManager.trigger(bundle, "test \"quote1");
+	}
+
+	@Test
+	public void quote_2()
+	{
+		String text = "hello world";
+		commandManager.trigger(bundle, "test quote2 \"" + text + "\"");
+
+		assertEquals(TestUnitCommands.getResult("quote2").get("quote2"), text);
+	}
+
 }

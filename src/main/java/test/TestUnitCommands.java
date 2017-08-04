@@ -94,4 +94,18 @@ public class TestUnitCommands
 		testResults.put("missing1", number);
 	}
 
+	// QUOTE //
+
+	@CommandPath("quote1 {var1}")
+	public void quote_1(@CommandParam("var1") String text)
+	{
+		testResults.put("quote1", text);
+	}
+
+	@CommandPath("quote2 {var1}")
+	public void quote_2(@CommandParam("var1") String text)
+	{
+		testResults.put("quote2", text);
+	}
+
 }
