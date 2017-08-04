@@ -10,6 +10,7 @@ import net.ddns.endercrypt.intellicommand.command.Command;
 import net.ddns.endercrypt.intellicommand.command.Priority;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandException;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandNotFound;
+import net.ddns.endercrypt.intellicommand.exception.MalformedArgumentException;
 import net.ddns.endercrypt.intellicommand.mapper.ArgMapper;
 import net.ddns.endercrypt.intellicommand.mapper.Mappers;
 
@@ -111,7 +112,7 @@ public class IntelliCommandManager
 		}
 		if (inQuote == true)
 		{
-			throw new IllegalArgumentException("Malformed command, should have starting and ending quotes");
+			throw new MalformedArgumentException("Malformed command, should have starting and ending quotes");
 		}
 		if (sb.length() > 0)
 		{
