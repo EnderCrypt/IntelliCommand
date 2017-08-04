@@ -1,5 +1,6 @@
 package test;
 
+import java.awt.Point;
 import java.util.Map;
 import java.util.Random;
 
@@ -22,7 +23,7 @@ public class TestUnit
 {
 	private static Random random;
 	private static IntelliCommandManager commandManager;
-	private static TestUnitCommands TestUnitCommands;
+	private static TestUnitCommands testUnitCommands;
 
 	private Bundle bundle;
 
@@ -31,9 +32,9 @@ public class TestUnit
 	{
 		random = new Random();
 		commandManager = new IntelliCommandManager();
-		TestUnitCommands = new TestUnitCommands();
+		testUnitCommands = new TestUnitCommands();
 
-		commandManager.registerCommands(TestUnitCommands);
+		commandManager.registerCommands(testUnitCommands);
 	}
 
 	@Before
@@ -45,7 +46,7 @@ public class TestUnit
 	@After
 	public void after()
 	{
-		TestUnitCommands.clearResults();
+		testUnitCommands.clearResults();
 	}
 
 	@Test
@@ -53,8 +54,8 @@ public class TestUnit
 	{
 		commandManager.trigger(bundle, "test empty1");
 
-		Map<String, Object> results = TestUnitCommands.getResult("empty1");
-		assertEquals(results.get("empty1"), true);
+		Map<String, Object> results = testUnitCommands.getResult("empty1");
+		assertEquals(true, results.get("empty1"));
 	}
 
 	// EMPTY //
@@ -64,8 +65,8 @@ public class TestUnit
 	{
 		commandManager.trigger(bundle, "test empty1");
 
-		Map<String, Object> results = TestUnitCommands.getResult("empty1");
-		assertEquals(results.get("empty1"), true);
+		Map<String, Object> results = testUnitCommands.getResult("empty1");
+		assertEquals(true, results.get("empty1"));
 	}
 
 	// BASIC //
@@ -77,32 +78,32 @@ public class TestUnit
 
 		commandManager.trigger(bundle, "test basic1 " + number);
 
-		Map<String, Object> results = TestUnitCommands.getResult("basic1");
-		assertEquals(results.get("basic1"), number);
+		Map<String, Object> results = testUnitCommands.getResult("basic1");
+		assertEquals(number, results.get("basic1"));
 	}
 
 	@Test
 	public void basic2()
 	{
-		String text = String.valueOf(random.ints(10, 97, 122).mapToObj(i -> (char) i).toArray(Character[]::new));
+		String text = new String(random.ints(10, 97, 122).toArray(), 0, 10);
 
 		commandManager.trigger(bundle, "test basic2 " + text);
 
-		Map<String, Object> results = TestUnitCommands.getResult("basic2");
-		assertEquals(results.get("basic2"), text);
+		Map<String, Object> results = testUnitCommands.getResult("basic2");
+		assertEquals(text, results.get("basic2"));
 	}
 
 	@Test
 	public void basic3()
 	{
 		int number = random.nextInt(1_000_000);
-		String text = String.valueOf(random.ints(10, 97, 122).mapToObj(i -> (char) i).toArray(Character[]::new));
+		String text = new String(random.ints(10, 97, 122).toArray(), 0, 10);
 
 		commandManager.trigger(bundle, "test basic3 " + number + " " + text);
 
-		Map<String, Object> results = TestUnitCommands.getResult("basic3_int", "basic3_string");
-		assertEquals(results.get("basic3_int"), number);
-		assertEquals(results.get("basic3_string"), text);
+		Map<String, Object> results = testUnitCommands.getResult("basic3_int", "basic3_string");
+		assertEquals(number, results.get("basic3_int"));
+		assertEquals(text, results.get("basic3_string"));
 	}
 
 	// OVERLOAD //
@@ -114,17 +115,17 @@ public class TestUnit
 
 		commandManager.trigger(bundle, "test overload1 " + number);
 
-		assertEquals(TestUnitCommands.getResult("overload1_int").get("overload1_int"), number);
+		assertEquals(number, testUnitCommands.getResult("overload1_int").get("overload1_int"));
 	}
 
 	@Test
 	public void overload1_string()
 	{
-		String string = String.valueOf(random.ints(10, 97, 122).mapToObj(i -> (char) i).toArray(Character[]::new));
+		String text = new String(random.ints(10, 97, 122).toArray(), 0, 10);
 
-		commandManager.trigger(bundle, "test overload1 " + string);
+		commandManager.trigger(bundle, "test overload1 " + text);
 
-		assertEquals(TestUnitCommands.getResult("overload1_string").get("overload1_string"), string);
+		assertEquals(text, testUnitCommands.getResult("overload1_string").get("overload1_string"));
 	}
 
 	@Test
@@ -134,7 +135,7 @@ public class TestUnit
 
 		commandManager.trigger(bundle, "test overload1 " + bool);
 
-		assertEquals(TestUnitCommands.getResult("overload1_boolean").get("overload1_boolean"), bool);
+		assertEquals(bool, testUnitCommands.getResult("overload1_boolean").get("overload1_boolean"));
 	}
 
 	// MISSING //
@@ -165,7 +166,25 @@ public class TestUnit
 		String text = "hello world";
 		commandManager.trigger(bundle, "test quote2 \"" + text + "\"");
 
-		assertEquals(TestUnitCommands.getResult("quote2").get("quote2"), text);
+		assertEquals(text, testUnitCommands.getResult("quote2").get("quote2"));
 	}
 
+	// BUNDLE //
+
+	@Test
+	public void bundle_1()
+	{
+		Point point1 = new Point(1, 2);
+		Point point2 = new Point(3, 4);
+
+		bundle.add("item1", point1);
+		bundle.add("item2", point2);
+
+		commandManager.trigger(bundle, "test bundle1");
+
+		Map<String, Object> result = testUnitCommands.getResult("point1", "point2");
+
+		assertSame(point1, result.get("point1"));
+		assertSame(point2, result.get("point2"));
+	}
 }

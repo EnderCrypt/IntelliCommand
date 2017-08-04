@@ -1,5 +1,6 @@
 package test;
 
+import java.awt.Point;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.ddns.endercrypt.intellicommand.CommandPath;
+import net.ddns.endercrypt.intellicommand.bundle.Include;
 import net.ddns.endercrypt.intellicommand.command.CommandParam;
 import net.ddns.endercrypt.intellicommand.command.Priority;
 
@@ -106,6 +108,15 @@ public class TestUnitCommands
 	public void quote_2(@CommandParam("var1") String text)
 	{
 		testResults.put("quote2", text);
+	}
+
+	// BUNDLE //
+
+	@CommandPath("bundle1")
+	public void bundle_1(@Include("item1") Point point1, @Include("item2") Point point2)
+	{
+		testResults.put("point1", point1);
+		testResults.put("point2", point2);
 	}
 
 }
