@@ -86,4 +86,12 @@ public class TestUnitCommands
 		testResults.put("overload1_string", text);
 	}
 
+	// MISSING //
+
+	@CommandPath("missing1 {var1}")
+	public void missing_1(@CommandParam("var1") int number)
+	{
+		testResults.put("missing1", number);
+	}
+
 }

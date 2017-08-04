@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
 import net.ddns.endercrypt.intellicommand.IntelliCommandManager;
+import net.ddns.endercrypt.intellicommand.exception.IntelliCommandNotFound;
 
 import static org.junit.Assert.*;
 
@@ -56,6 +57,8 @@ public class TestUnit
 		assertEquals(results.get("empty1"), true);
 	}
 
+	// EMPTY //
+
 	@Test
 	public void empty1()
 	{
@@ -64,6 +67,8 @@ public class TestUnit
 		Map<String, Object> results = TestUnitCommands.getResult("empty1");
 		assertEquals(results.get("empty1"), true);
 	}
+
+	// BASIC //
 
 	@Test
 	public void basic1()
@@ -100,6 +105,8 @@ public class TestUnit
 		assertEquals(results.get("basic3_string"), text);
 	}
 
+	// OVERLOAD //
+
 	@Test
 	public void overload1_int()
 	{
@@ -130,4 +137,17 @@ public class TestUnit
 		assertEquals(TestUnitCommands.getResult("overload1_boolean").get("overload1_boolean"), bool);
 	}
 
+	// MISSING
+
+	@Test(expected = IntelliCommandNotFound.class)
+	public void missing_command()
+	{
+		commandManager.trigger(bundle, "test missing1 yukgvdcdthsfaftj");
+	}
+
+	@Test(expected = IntelliCommandNotFound.class)
+	public void missing_1()
+	{
+		commandManager.trigger(bundle, "test missing1 test");
+	}
 }
