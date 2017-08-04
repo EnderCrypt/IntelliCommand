@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import net.ddns.endercrypt.intellicommand.command.parse.CommandParser;
+import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
 import net.ddns.endercrypt.intellicommand.mapper.Mappers;
 
 public class Command implements Comparable<Command>
@@ -35,7 +36,7 @@ public class Command implements Comparable<Command>
 		{
 			parser.parse();
 		}
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | MapperConversionFailed e)
 		{
 			return null;
 		}

@@ -6,6 +6,7 @@ import java.util.Map;
 import net.ddns.endercrypt.intellicommand.command.CommandParam;
 import net.ddns.endercrypt.intellicommand.command.Include;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandException;
+import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
 import net.ddns.endercrypt.intellicommand.mapper.Mappers;
 
 public class CommandParser
@@ -51,7 +52,7 @@ public class CommandParser
 		}
 	}
 
-	public void parse()
+	public void parse() throws MapperConversionFailed
 	{
 		if (args.length != commandArgs.length)
 			throw new IllegalArgumentException("wrong number of arguments (was " + args.length + ", expected: " + commandArgs.length + ")");
@@ -85,7 +86,7 @@ public class CommandParser
 		}
 	}
 
-	private void setArg(String name, String value)
+	private void setArg(String name, String value) throws MapperConversionFailed
 	{
 		for (int i = 0; i < parameters.length; i++)
 		{

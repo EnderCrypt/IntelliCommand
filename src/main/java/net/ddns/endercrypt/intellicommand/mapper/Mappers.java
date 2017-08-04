@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandException;
+import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
 import net.ddns.endercrypt.intellicommand.mapper.common.BooleanMapper;
 import net.ddns.endercrypt.intellicommand.mapper.common.DoubleMapper;
 import net.ddns.endercrypt.intellicommand.mapper.common.IntegerMapper;
@@ -29,7 +30,7 @@ public class Mappers
 		mappers.put(mapperType, mapper);
 	}
 
-	public Object map(String value, Class<?> clazz)
+	public Object map(String value, Class<?> clazz) throws MapperConversionFailed
 	{
 		ArgMapper mapper = mappers.get(clazz);
 		if (mapper == null)
