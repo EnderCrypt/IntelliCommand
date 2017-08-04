@@ -1,4 +1,4 @@
-package test;
+package test.ing;
 
 import java.awt.Point;
 
@@ -7,7 +7,7 @@ import net.ddns.endercrypt.intellicommand.command.Include;
 import net.ddns.endercrypt.intellicommand.command.CommandParam;
 
 @CommandPath("send")
-public class sendCommands
+public class TestingCommands
 {
 	@CommandPath("message {number}")
 	public void message(@Include("key") Point key, @CommandParam("number") int text)

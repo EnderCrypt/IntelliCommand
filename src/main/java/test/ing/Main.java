@@ -1,4 +1,4 @@
-package test;
+package test.ing;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ public class Main
 	{
 		IntelliCommandManager commandManager = new IntelliCommandManager();
 
-		commandManager.registerCommands(new sendCommands());
+		commandManager.registerCommands(new TestingCommands());
 
 		Map<String, Object> bundle = new HashMap<>();
 		bundle.put("key", new Point(25, 0));
