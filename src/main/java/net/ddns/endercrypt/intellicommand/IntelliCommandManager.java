@@ -1,13 +1,13 @@
 package net.ddns.endercrypt.intellicommand;
 
 import java.lang.reflect.Method;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import net.ddns.endercrypt.intellicommand.command.Command;
+import net.ddns.endercrypt.intellicommand.command.Priority;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandException;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandNotFound;
 import net.ddns.endercrypt.intellicommand.mapper.ArgMapper;
@@ -15,7 +15,7 @@ import net.ddns.endercrypt.intellicommand.mapper.Mappers;
 
 public class IntelliCommandManager
 {
-	private Queue<Command> commands = new ArrayDeque<>();
+	private List<Command> commands = new ArrayList<>();
 
 	private Mappers mappers = new Mappers();
 
@@ -52,10 +52,21 @@ public class IntelliCommandManager
 				String fullPath = global + " " + local;
 				String[] args = Arrays.stream(fullPath.split(" ")).filter(s -> !s.equals("")).toArray(String[]::new);
 
+				// priority
+				int priority = 0;
+				Priority priorityAnnotation = method.getAnnotation(Priority.class);
+				if (priorityAnnotation != null)
+				{
+					priority = priorityAnnotation.value();
+				}
+
 				// add command
-				commands.add(new Command(args, object, method));
+				commands.add(new Command(args, object, method, priority));
 			}
 		}
+
+		// sort
+		Collections.sort(commands);
 	}
 
 	private static String[] split(String text)
