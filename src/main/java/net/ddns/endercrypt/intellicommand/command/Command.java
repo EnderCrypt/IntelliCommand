@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
-import java.util.Map;
-
 import net.ddns.endercrypt.intellicommand.bundle.Bundle;
 import net.ddns.endercrypt.intellicommand.command.parse.CommandParser;
 import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
@@ -39,6 +37,7 @@ public class Command implements Comparable<Command>
 		}
 		catch (IllegalArgumentException | MapperConversionFailed e)
 		{
+			//System.err.println(method + ": " + e);
 			return null;
 		}
 		return parser.result();

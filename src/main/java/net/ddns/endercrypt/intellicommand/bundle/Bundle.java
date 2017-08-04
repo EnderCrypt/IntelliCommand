@@ -2,10 +2,11 @@ package net.ddns.endercrypt.intellicommand.bundle;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class Bundle
 {
-	private Map<String, Object> items = new HashMap<>();
+	private Map<String, Supplier<Object>> suppliers = new HashMap<>();
 
 	public Bundle()
 	{
@@ -14,11 +15,21 @@ public class Bundle
 
 	public void add(String key, Object item)
 	{
-		items.put(key, item);
+		addSupplier(key, () -> item);
 	}
 
-	public Object check(String key)
+	public void addSupplier(String key, Supplier<Object> supplier)
 	{
-		return items.get(key);
+		suppliers.put(key, supplier);
+	}
+
+	public Object get(String key)
+	{
+		Supplier<Object> supplier = suppliers.get(key);
+		if (supplier == null)
+		{
+			return null;
+		}
+		return supplier.get();
 	}
 }

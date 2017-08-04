@@ -36,7 +36,7 @@ public class CommandParser
 			if (bundleAnnotation != null)
 			{
 				String name = bundleAnnotation.value();
-				Object bundleValue = bundle.check(name);
+				Object bundleValue = bundle.get(name);
 
 				if (bundleValue != null)
 				{
@@ -80,7 +80,7 @@ public class CommandParser
 
 			if (returnArg == null)
 			{
-				throw new IllegalArgumentException("Missing argument to fill position " + i + 1);
+				throw new IllegalArgumentException("Missing argument to fill position " + (i + 1));
 			}
 		}
 	}
