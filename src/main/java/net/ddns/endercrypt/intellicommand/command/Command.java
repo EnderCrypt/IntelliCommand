@@ -3,11 +3,13 @@ package net.ddns.endercrypt.intellicommand.command;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.Arrays;
 import java.util.Map;
+
 import net.ddns.endercrypt.intellicommand.command.parse.CommandParser;
 import net.ddns.endercrypt.intellicommand.mapper.Mappers;
 
-public class Command
+public class Command implements Comparable<Command>
 {
 	private String[] commandArgs;
 
@@ -15,11 +17,14 @@ public class Command
 	private Method method;
 	private Parameter[] parameters;
 
-	public Command(String[] commandArgs, Object object, Method method)
+	private int priority;
+
+	public Command(String[] commandArgs, Object object, Method method, int priority)
 	{
 		this.commandArgs = commandArgs;
 		this.object = object;
 		this.method = method;
+		this.priority = priority;
 		parameters = method.getParameters();
 	}
 
@@ -41,5 +46,17 @@ public class Command
 	{
 		//System.out.println("Invoking with args: " + Arrays.toString(commandArguments));
 		method.invoke(object, commandArguments);
+	}
+
+	@Override
+	public int compareTo(Command other)
+	{
+		return Integer.compare(other.priority, priority);
+	}
+
+	@Override
+	public String toString()
+	{
+		return getClass().getName() + "[path=" + Arrays.toString(commandArgs) + ", method=" + method + "]";
 	}
 }
