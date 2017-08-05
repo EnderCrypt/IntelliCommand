@@ -20,12 +20,12 @@ public class Bundle
 
 	public void addSupplier(String key, Supplier<Object> supplier)
 	{
-		suppliers.put(key, supplier);
+		suppliers.put(key.toLowerCase(), supplier);
 	}
 
 	public Object get(String key)
 	{
-		Supplier<Object> supplier = suppliers.get(key);
+		Supplier<Object> supplier = suppliers.get(key.toLowerCase());
 		if (supplier == null)
 		{
 			return null;
