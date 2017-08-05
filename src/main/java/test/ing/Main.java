@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import net.ddns.endercrypt.intellicommand.IntelliCommandManager;
 import net.ddns.endercrypt.intellicommand.bundle.Bundle;
+import net.ddns.endercrypt.intellicommand.exception.IntelliCommandNotFound;
 
 public class Main
 {
@@ -18,10 +19,18 @@ public class Main
 
 		while (true)
 		{
+			System.out.print("> ");
 			String text = scanner.nextLine();
 			Bundle bundle = new Bundle();
 			bundle.add("POINT", new Point(5, 5));
-			manager.trigger(bundle, text);
+			try
+			{
+				manager.trigger(bundle, text);
+			}
+			catch (IntelliCommandNotFound e)
+			{
+				System.err.println("Command not found");
+			}
 		}
 	}
 }

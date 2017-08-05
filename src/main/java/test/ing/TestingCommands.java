@@ -10,7 +10,7 @@ import net.ddns.endercrypt.intellicommand.command.CommandParam;
 public class TestingCommands
 {
 	@CommandPath("hello {arg}")
-	public void user1(@CommandParam("arg") String text, @Include("POINT") Point point)
+	public void user1(@CommandParam("arg") String text, @Include("point") Point point)
 	{
 		System.out.println("POINT: " + point + " said: " + text);
 	}
