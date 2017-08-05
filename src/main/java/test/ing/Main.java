@@ -1,7 +1,6 @@
 package test.ing;
 
 import java.awt.Point;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 import net.ddns.endercrypt.intellicommand.IntelliCommandManager;
@@ -13,10 +12,9 @@ public class Main
 	private static Scanner scanner = new Scanner(System.in);
 	private static IntelliCommandManager manager = new IntelliCommandManager();
 
-	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, NoSuchFieldException
+	public static void main(String[] args)
 	{
 		manager.registerCommands(new TestingCommands());
-
 		while (true)
 		{
 			System.out.print("> ");

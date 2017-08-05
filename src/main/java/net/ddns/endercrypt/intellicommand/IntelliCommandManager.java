@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import net.ddns.endercrypt.intellicommand.bundle.Bundle;
 import net.ddns.endercrypt.intellicommand.command.Command;
@@ -19,7 +18,6 @@ import net.ddns.endercrypt.intellicommand.mapper.Mappers;
 public class IntelliCommandManager
 {
 	private List<Command> commands = new ArrayList<>();
-
 	private Mappers mappers = new Mappers();
 
 	public IntelliCommandManager()
