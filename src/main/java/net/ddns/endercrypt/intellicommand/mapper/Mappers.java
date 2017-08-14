@@ -49,6 +49,11 @@ public class Mappers
 		if (mapper == null)
 			throw new IntelliCommandException("Couldnt find mapper for class " + clazz.getSimpleName());
 
-		return mapper.map(value);
+		Object object = mapper.map(value);
+
+		if (clazz.isInstance(object) == false)
+			throw new IllegalArgumentException("Mapper for " + clazz + " returned an object of type " + object.getClass());
+
+		return object;
 	}
 }
