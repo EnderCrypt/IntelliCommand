@@ -1,5 +1,10 @@
 package net.ddns.endercrypt.intellicommand.exception;
 
+/**
+ * @author EnderCrypt
+ * 
+ * generic exception for when an argument is malformed
+ */
 @SuppressWarnings("serial")
 public class MalformedArgumentException extends RuntimeException
 {

@@ -9,6 +9,11 @@ import net.ddns.endercrypt.intellicommand.command.parse.CommandParser;
 import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
 import net.ddns.endercrypt.intellicommand.mapper.Mappers;
 
+/**
+ * @author EnderCrypt
+ * 
+ * holder class for holding a command method and its related parameters and settings
+ */
 public class Command implements Comparable<Command>
 {
 	private String[] commandArgs;
@@ -28,6 +33,14 @@ public class Command implements Comparable<Command>
 		parameters = method.getParameters();
 	}
 
+	/**
+	 * attempts to get the arguments used to call this command, using a list of string arguments
+	 * WILL throw null if this cannot be done (aka not a valid command method to call with these arguments)
+	 * @param mappers
+	 * @param args
+	 * @param bundle
+	 * @return
+	 */
 	public Object[] obtainArguments(Mappers mappers, String[] args, Bundle bundle)
 	{
 		CommandParser parser = new CommandParser(mappers, args, commandArgs, parameters, bundle);
@@ -37,12 +50,19 @@ public class Command implements Comparable<Command>
 		}
 		catch (IllegalArgumentException | MapperConversionFailed e)
 		{
-			//System.err.println(method + ": " + e);
 			return null;
 		}
 		return parser.result();
 	}
 
+	/**
+	 * attempts to activate this command method with an array of object args, typically called with
+	 * the return value from obtainArguments
+	 * @param commandArguments
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
 	public void trigger(Object... commandArguments) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
 	{
 		//System.out.println("Invoking with args: " + Arrays.toString(commandArguments));

@@ -8,8 +8,17 @@ import net.ddns.endercrypt.intellicommand.exception.IntelliCommandException;
 import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
 import net.ddns.endercrypt.intellicommand.mapper.Mappers;
 
+/**
+ * @author EnderCrypt
+ * 
+ * class for parsing string command arguments into arguments for a command
+ * once created, cannot be re-used
+ */
 public class CommandParser
 {
+	private boolean functional = true;
+	private boolean done = false;
+
 	private Mappers mappers;
 
 	private String[] args;
@@ -51,8 +60,16 @@ public class CommandParser
 		}
 	}
 
+	/**
+	 * performs the parsing
+	 * @throws MapperConversionFailed
+	 */
 	public void parse() throws MapperConversionFailed
 	{
+		if (functional == false)
+			throw new IllegalArgumentException("CommandParser cannot be re-used");
+		functional = false;
+
 		if (args.length != commandArgs.length)
 			throw new IllegalArgumentException("wrong number of arguments (was " + args.length + ", expected: " + commandArgs.length + ")");
 
@@ -83,8 +100,15 @@ public class CommandParser
 				throw new IllegalArgumentException("Missing argument to fill position " + (i + 1));
 			}
 		}
+		done = true;
 	}
 
+	/**
+	 * internal method for setting all arguments of name to a specific value
+	 * @param name
+	 * @param value
+	 * @throws MapperConversionFailed
+	 */
 	private void setArg(String name, String value) throws MapperConversionFailed
 	{
 		for (int i = 0; i < parameters.length; i++)
@@ -104,6 +128,13 @@ public class CommandParser
 		throw new IllegalArgumentException("couldnt find " + CommandParam.class.getSimpleName() + "(\"" + name + "\")");
 	}
 
+	/**
+	 * method for retriving Class's from primitives
+	 * TODO: this method is.. should be replaced, its very hardcoded/low quality, im fully aware of its terribleness and would love to replace it with
+	 * something a bit less bad-looking, but untill i find something better, this will do
+	 * @param clazz
+	 * @return
+	 */
 	public static Class<?> filterPrimitiveType(Class<?> clazz)
 	{
 		/*
@@ -153,6 +184,8 @@ public class CommandParser
 
 	public Object[] result()
 	{
+		if (done == false)
+			throw new IllegalStateException("cannot get results whitout finishing parsing");
 		return returnArgs;
 	}
 

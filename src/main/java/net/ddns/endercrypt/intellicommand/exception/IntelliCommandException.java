@@ -1,5 +1,10 @@
 package net.ddns.endercrypt.intellicommand.exception;
 
+/**
+ * @author EnderCrypt
+ * 
+ * generic exception for IntelliCommandManager
+ */
 @SuppressWarnings("serial")
 public class IntelliCommandException extends RuntimeException
 {
