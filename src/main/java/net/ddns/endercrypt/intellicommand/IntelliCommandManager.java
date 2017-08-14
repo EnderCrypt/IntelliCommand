@@ -15,6 +15,12 @@ import net.ddns.endercrypt.intellicommand.exception.MalformedArgumentException;
 import net.ddns.endercrypt.intellicommand.mapper.ArgMapper;
 import net.ddns.endercrypt.intellicommand.mapper.Mappers;
 
+/**
+ * @author EnderCrypt
+ *
+ * main class for handling commands, the registerMapper method should be used to register objects with commands first
+ * and custom mappers if needed, afterwards commands can be inputed through the trigger method
+ */
 public class IntelliCommandManager
 {
 	private List<Command> commands = new ArrayList<>();
@@ -25,11 +31,23 @@ public class IntelliCommandManager
 
 	}
 
+	/**
+	 * registers a mapper class to allow command arguments to be converted into java objects
+	 * 
+	 * @param mapperType the mapper class
+	 * @param mapper the object to be converted into
+	 */
 	public void registerMapper(Class<?> mapperType, ArgMapper mapper)
 	{
 		mappers.register(mapperType, mapper);
 	}
 
+	/**
+	 * registers an object to recieve commands, for a class to be accepted it needs to have
+	 * @CommandPath("value") as a class annotation and for each method that should be a command
+	 * 
+	 * @param object
+	 */
 	public void registerCommands(Object object)
 	{
 		// vars
@@ -70,6 +88,11 @@ public class IntelliCommandManager
 		Collections.sort(commands);
 	}
 
+	/**
+	 * internal method for splitting a string at each space OR quotes
+	 * @param text
+	 * @return an array of command + arguments
+	 */
 	private static String[] split(String text)
 	{
 		List<String> args = new ArrayList<>();
@@ -121,6 +144,13 @@ public class IntelliCommandManager
 		return args.toArray(new String[args.size()]);
 	}
 
+	/**
+	 * attempts to find and activate a command from a class thats been previously added through registerCommands
+	 * a bundle of objects should be included, these will be passed on to command methods with the @Include annotation
+	 * 
+	 * @param bundle
+	 * @param stringCommand
+	 */
 	public void trigger(Bundle bundle, String stringCommand)
 	{
 		String[] args = split(stringCommand);
