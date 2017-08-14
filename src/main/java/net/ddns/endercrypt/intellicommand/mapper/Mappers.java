@@ -15,6 +15,14 @@ import net.ddns.endercrypt.intellicommand.mapper.common.primitive.IntegerMapper;
 import net.ddns.endercrypt.intellicommand.mapper.common.primitive.LongMapper;
 import net.ddns.endercrypt.intellicommand.mapper.common.primitive.ShortMapper;
 
+/**
+ * @author EnderCrypt
+ * 
+ * class that holds all mappers and the class they produce
+ * default mappers exists for all basic primitive datatypes +string
+ * 
+ * strings can be converted into the correct object using the map method
+ */
 public class Mappers
 {
 	private Map<Class<?>, ArgMapper> mappers = new HashMap<>();
@@ -28,21 +36,29 @@ public class Mappers
 		register(Integer.class, new IntegerMapper());
 		register(Long.class, new LongMapper());
 		register(Short.class, new ShortMapper());
-		// objects
 		// common
 		register(String.class, new StringMapper());
 	}
 
-	public Mappers()
-	{
-		// TODO Auto-generated constructor stub
-	}
-
+	/**
+	 * allows adding additional mappers
+	 * @param mapperType
+	 * @param mapper
+	 */
 	public void register(Class<?> mapperType, ArgMapper mapper)
 	{
 		mappers.put(mapperType, mapper);
 	}
 
+	/**
+	 * attempts to convert a string into its mapper object
+	 * @param value
+	 * @param clazz
+	 * @return
+	 * @throws MapperConversionFailed if an internal mapper failed to map the correct object
+	 * @throws IntelliCommandException if no mapper was available to convert to this specific class
+	 * @throws IllegalArgumentException if an internal mapper converted to the wrong object class
+	 */
 	public Object map(String value, Class<?> clazz) throws MapperConversionFailed
 	{
 		ArgMapper mapper = mappers.get(clazz);
