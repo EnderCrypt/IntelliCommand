@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
+import java.util.Optional;
+
 import net.ddns.endercrypt.intellicommand.bundle.Bundle;
 import net.ddns.endercrypt.intellicommand.command.parse.CommandParser;
 import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
@@ -41,7 +43,7 @@ public class Command implements Comparable<Command>
 	 * @param bundle
 	 * @return
 	 */
-	public Object[] obtainArguments(Mappers mappers, String[] args, Bundle bundle)
+	public Optional<Object[]> obtainArguments(Mappers mappers, String[] args, Bundle bundle)
 	{
 		CommandParser parser = new CommandParser(mappers, args, commandArgs, parameters, bundle);
 		try
@@ -52,7 +54,7 @@ public class Command implements Comparable<Command>
 		{
 			return null;
 		}
-		return parser.result();
+		return Optional.of(parser.result());
 	}
 
 	/**

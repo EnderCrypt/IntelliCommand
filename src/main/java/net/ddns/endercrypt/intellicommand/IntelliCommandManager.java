@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import net.ddns.endercrypt.intellicommand.bundle.Bundle;
 import net.ddns.endercrypt.intellicommand.command.Command;
@@ -157,12 +158,13 @@ public class IntelliCommandManager
 
 		for (Command command : commands)
 		{
-			Object[] commandArguments = command.obtainArguments(mappers, args, bundle);
-			if (commandArguments != null)
+			Optional<Object[]> optionalCommandArguments = command.obtainArguments(mappers, args, bundle);
+			if (optionalCommandArguments.isPresent())
 			{
+				Object[] objArgs = optionalCommandArguments.get();
 				try
 				{
-					command.trigger(commandArguments);
+					command.trigger(objArgs);
 				}
 				catch (ReflectiveOperationException e)
 				{
