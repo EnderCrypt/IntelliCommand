@@ -52,6 +52,10 @@ public class Bundle
 		{
 			return null;
 		}
-		return supplier.get();
+		Object object = supplier.get();
+		// cache
+		suppliers.put(key, () -> object);
+		// return
+		return object;
 	}
 }
