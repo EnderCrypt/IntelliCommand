@@ -24,6 +24,7 @@ public class CommandParser
 	private String[] args;
 	private String[] commandArgs;
 	private Parameter[] parameters;
+	private Bundle bundle;
 
 	private Object[] returnArgs;
 
@@ -34,10 +35,45 @@ public class CommandParser
 		this.args = args;
 		this.commandArgs = commandArgs;
 		this.parameters = parameters;
+		this.bundle = bundle;
 
 		this.returnArgs = new Object[parameters.length];
+	}
 
-		// set includes
+	/**
+	 * performs the parsing
+	 * @throws MapperConversionFailed
+	 */
+	public void parse() throws MapperConversionFailed
+	{
+		// verify that CommandParser hasnt already been parsed
+		if (functional == false)
+			throw new IllegalStateException("CommandParser cannot be re-used");
+		functional = false;
+
+		// verify that arguments match required args
+		if (args.length != commandArgs.length)
+			throw new IllegalArgumentException("wrong number of arguments (was " + args.length + ", expected: " + commandArgs.length + ")");
+
+		// set parameters from string args
+		for (int i = 0; i < commandArgs.length; i++)
+		{
+			String arg = args[i];
+			String commandArg = commandArgs[i];
+
+			if (commandArg.startsWith("{") && commandArg.endsWith("}"))
+			{
+				String name = commandArg.substring(1, commandArg.length() - 1);
+				String value = args[i];
+				setArg(name, value);
+			}
+			else
+			{
+				if (arg.equals(commandArg) == false)
+					throw new IllegalArgumentException("expected " + commandArg + " got " + arg + " at position " + i);
+			}
+		}
+		// set bundles
 		for (int i = 0; i < parameters.length; i++)
 		{
 			Parameter parameter = parameters[i];
@@ -58,39 +94,7 @@ public class CommandParser
 				}
 			}
 		}
-	}
-
-	/**
-	 * performs the parsing
-	 * @throws MapperConversionFailed
-	 */
-	public void parse() throws MapperConversionFailed
-	{
-		if (functional == false)
-			throw new IllegalArgumentException("CommandParser cannot be re-used");
-		functional = false;
-
-		if (args.length != commandArgs.length)
-			throw new IllegalArgumentException("wrong number of arguments (was " + args.length + ", expected: " + commandArgs.length + ")");
-
-		for (int i = 0; i < commandArgs.length; i++)
-		{
-			String arg = args[i];
-			String commandArg = commandArgs[i];
-
-			if (commandArg.startsWith("{") && commandArg.endsWith("}"))
-			{
-				String name = commandArg.substring(1, commandArg.length() - 1);
-				String value = args[i];
-				setArg(name, value);
-			}
-			else
-			{
-				if (arg.equals(commandArg) == false)
-					throw new IllegalArgumentException("expected " + commandArg + " got " + arg + " at position " + i);
-			}
-		}
-
+		// verify theres no null's
 		for (int i = 0; i < returnArgs.length; i++)
 		{
 			Object returnArg = returnArgs[i];
@@ -100,6 +104,7 @@ public class CommandParser
 				throw new IllegalArgumentException("Missing argument to fill position " + (i + 1));
 			}
 		}
+		// done
 		done = true;
 	}
 
