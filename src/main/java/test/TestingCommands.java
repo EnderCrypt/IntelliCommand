@@ -1,4 +1,4 @@
-package test.ing;
+package test;
 
 import java.awt.Point;
 
