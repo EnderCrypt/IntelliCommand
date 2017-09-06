@@ -87,7 +87,7 @@ public class CommandParser
 				{
 					Class<?> clazz = filterPrimitiveType(parameter.getType());
 					Class<?> bundleClazz = bundleValue.getClass();
-					if (clazz.equals(bundleClazz) == false)
+					if (clazz.isInstance(bundleClazz) == false)
 						throw new IntelliCommandException("command method requested bundle named \"" + name + "\" type: " + clazz.getName() + " but got bundle class: " + bundleClazz.getName());
 
 					returnArgs[i] = bundleValue;
