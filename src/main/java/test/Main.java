@@ -13,7 +13,7 @@ public class Main
 	private static IntelliCommandManager manager = new IntelliCommandManager();
 
 	public static void main(String[] args)
-	{	
+	{
 		manager.registerCommands(new TestingCommands());
 		while (true)
 		{
