@@ -20,7 +20,7 @@ public class Main
 			System.out.print("> ");
 			String text = scanner.nextLine();
 			Bundle bundle = new Bundle();
-			bundle.add("POINT", new Point(5, 5));
+			bundle.add("POINT", new Point());
 			try
 			{
 				manager.trigger(bundle, text);

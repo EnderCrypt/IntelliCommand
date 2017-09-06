@@ -52,7 +52,7 @@ public class Command implements Comparable<Command>
 		}
 		catch (IllegalArgumentException | MapperConversionFailed e)
 		{
-			return null;
+			return Optional.empty();
 		}
 		return Optional.of(parser.result());
 	}
