@@ -69,7 +69,7 @@ public class CommandParser
 			}
 			else
 			{
-				if (arg.equals(commandArg) == false)
+				if (arg.equalsIgnoreCase(commandArg) == false)
 					throw new IllegalArgumentException("expected " + commandArg + " got " + arg + " at position " + i);
 			}
 		}

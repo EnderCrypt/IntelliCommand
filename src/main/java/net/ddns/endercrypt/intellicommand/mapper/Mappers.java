@@ -25,7 +25,7 @@ import net.ddns.endercrypt.intellicommand.mapper.common.primitive.ShortMapper;
  */
 public class Mappers
 {
-	private Map<Class<?>, ArgMapper> mappers = new HashMap<>();
+	private Map<Class<?>, ArgMapper<?>> mappers = new HashMap<>();
 	{
 		// primitive
 		register(Boolean.class, new BooleanMapper());
