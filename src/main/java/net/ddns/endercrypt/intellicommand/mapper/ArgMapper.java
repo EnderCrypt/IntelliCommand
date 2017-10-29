@@ -11,7 +11,7 @@ import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
  * 
  * if the class is unable to convert due to invalid text, a MapperConversionFailed should be thrown
  */
-public interface ArgMapper
+public interface ArgMapper<T>
 {
 	/**
 	 * mapping method for converting a text string into a java object
@@ -19,5 +19,5 @@ public interface ArgMapper
 	 * @return
 	 * @throws MapperConversionFailed if string cant be converted
 	 */
-	public Object map(String text) throws MapperConversionFailed;
+	public T map(String text) throws MapperConversionFailed;
 }
