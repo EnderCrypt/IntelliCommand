@@ -6,7 +6,7 @@ package net.ddns.endercrypt.intellicommand.exception;
  * exception for when a command doesent exists
  */
 @SuppressWarnings("serial")
-public class IntelliCommandNotFound extends IntelliCommandException
+public class IntelliCommandNotFound extends Exception
 {
 	public IntelliCommandNotFound()
 	{

@@ -8,7 +8,9 @@ import java.util.Optional;
 
 import net.ddns.endercrypt.intellicommand.bundle.Bundle;
 import net.ddns.endercrypt.intellicommand.command.parse.CommandParser;
+import net.ddns.endercrypt.intellicommand.exception.IntelliCommandException;
 import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
+import net.ddns.endercrypt.intellicommand.exception.UnderlyingIntelliException;
 import net.ddns.endercrypt.intellicommand.mapper.Mappers;
 
 /**
@@ -61,14 +63,23 @@ public class Command implements Comparable<Command>
 	 * attempts to activate this command method with an array of object args, typically called with
 	 * the return value from obtainArguments
 	 * @param commandArguments
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
+	 * @throws UnderlyingIntelliException 
 	 */
-	public void trigger(Object... commandArguments) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+	public void trigger(Object... commandArguments) throws UnderlyingIntelliException
 	{
 		//System.out.println("Invoking with args: " + Arrays.toString(commandArguments));
-		method.invoke(object, commandArguments);
+		try
+		{
+			method.invoke(object, commandArguments);
+		}
+		catch (InvocationTargetException e)
+		{
+			throw new UnderlyingIntelliException(e);
+		}
+		catch (ReflectiveOperationException e)
+		{
+			throw new IntelliCommandException(e);
+		}
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import net.ddns.endercrypt.intellicommand.IntelliCommandManager;
 import net.ddns.endercrypt.intellicommand.bundle.Bundle;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandNotFound;
 import net.ddns.endercrypt.intellicommand.exception.MalformedArgumentException;
+import net.ddns.endercrypt.intellicommand.exception.UnderlyingIntelliException;
 
 import static org.junit.Assert.*;
 
@@ -50,7 +51,7 @@ public class TestUnit
 	}
 
 	@Test
-	public void canExecuteBasicCommand1()
+	public void canExecuteBasicCommand1() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		commandManager.trigger(bundle, "test empty1");
 
@@ -61,7 +62,7 @@ public class TestUnit
 	// EMPTY //
 
 	@Test
-	public void empty1()
+	public void empty1() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		commandManager.trigger(bundle, "test empty1");
 
@@ -72,7 +73,7 @@ public class TestUnit
 	// BASIC //
 
 	@Test
-	public void basic1()
+	public void basic1() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		int number = random.nextInt(1_000_000);
 
@@ -83,7 +84,7 @@ public class TestUnit
 	}
 
 	@Test
-	public void basic2()
+	public void basic2() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		String text = new String(random.ints(10, 97, 122).toArray(), 0, 10);
 
@@ -94,7 +95,7 @@ public class TestUnit
 	}
 
 	@Test
-	public void basic3()
+	public void basic3() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		int number = random.nextInt(1_000_000);
 		String text = new String(random.ints(10, 97, 122).toArray(), 0, 10);
@@ -109,7 +110,7 @@ public class TestUnit
 	// OVERLOAD //
 
 	@Test
-	public void overload1_int()
+	public void overload1_int() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		int number = random.nextInt(1_000_000);
 
@@ -119,7 +120,7 @@ public class TestUnit
 	}
 
 	@Test
-	public void overload1_string()
+	public void overload1_string() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		String text = new String(random.ints(10, 97, 122).toArray(), 0, 10);
 
@@ -129,7 +130,7 @@ public class TestUnit
 	}
 
 	@Test
-	public void overload1_boolean()
+	public void overload1_boolean() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		boolean bool = random.nextBoolean();
 
@@ -141,13 +142,13 @@ public class TestUnit
 	// MISSING //
 
 	@Test(expected = IntelliCommandNotFound.class)
-	public void missing_command()
+	public void missing_command() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		commandManager.trigger(bundle, "test missing1 yukgvdcdthsfaftj");
 	}
 
 	@Test(expected = IntelliCommandNotFound.class)
-	public void missing_1()
+	public void missing_1() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		commandManager.trigger(bundle, "test missing1 test");
 	}
@@ -155,13 +156,13 @@ public class TestUnit
 	// QUOTES //
 
 	@Test(expected = MalformedArgumentException.class)
-	public void quote_1()
+	public void quote_1() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		commandManager.trigger(bundle, "test \"quote1");
 	}
 
 	@Test
-	public void quote_2()
+	public void quote_2() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		String text = "hello world";
 		commandManager.trigger(bundle, "test quote2 \"" + text + "\"");
@@ -172,7 +173,7 @@ public class TestUnit
 	// BUNDLE //
 
 	@Test
-	public void bundle_1()
+	public void bundle_1() throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		Point point1 = new Point(1, 2);
 		Point point2 = new Point(3, 4);

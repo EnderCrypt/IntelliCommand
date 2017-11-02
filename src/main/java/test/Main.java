@@ -6,6 +6,7 @@ import java.util.Scanner;
 import net.ddns.endercrypt.intellicommand.IntelliCommandManager;
 import net.ddns.endercrypt.intellicommand.bundle.Bundle;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandNotFound;
+import net.ddns.endercrypt.intellicommand.exception.UnderlyingIntelliException;
 
 public class Main
 {
@@ -24,6 +25,10 @@ public class Main
 			try
 			{
 				manager.trigger(bundle, text);
+			}
+			catch (UnderlyingIntelliException e)
+			{
+				e.printStackTrace();
 			}
 			catch (IntelliCommandNotFound e)
 			{

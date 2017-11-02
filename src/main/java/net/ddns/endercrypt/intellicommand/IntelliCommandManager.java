@@ -10,9 +10,9 @@ import java.util.Optional;
 import net.ddns.endercrypt.intellicommand.bundle.Bundle;
 import net.ddns.endercrypt.intellicommand.command.Command;
 import net.ddns.endercrypt.intellicommand.command.Priority;
-import net.ddns.endercrypt.intellicommand.exception.IntelliCommandException;
 import net.ddns.endercrypt.intellicommand.exception.IntelliCommandNotFound;
 import net.ddns.endercrypt.intellicommand.exception.MalformedArgumentException;
+import net.ddns.endercrypt.intellicommand.exception.UnderlyingIntelliException;
 import net.ddns.endercrypt.intellicommand.mapper.ArgMapper;
 import net.ddns.endercrypt.intellicommand.mapper.Mappers;
 
@@ -151,8 +151,10 @@ public class IntelliCommandManager
 	 * 
 	 * @param bundle
 	 * @param stringCommand
+	 * @throws UnderlyingIntelliException 
+	 * @throws IntelliCommandNotFound 
 	 */
-	public void trigger(Bundle bundle, String stringCommand)
+	public void trigger(Bundle bundle, String stringCommand) throws UnderlyingIntelliException, IntelliCommandNotFound
 	{
 		String[] args = split(stringCommand);
 
@@ -162,14 +164,7 @@ public class IntelliCommandManager
 			if (optionalCommandArguments.isPresent())
 			{
 				Object[] objArgs = optionalCommandArguments.get();
-				try
-				{
-					command.trigger(objArgs);
-				}
-				catch (ReflectiveOperationException e)
-				{
-					throw new IntelliCommandException(e);
-				}
+				command.trigger(objArgs);
 				return;
 			}
 		}
