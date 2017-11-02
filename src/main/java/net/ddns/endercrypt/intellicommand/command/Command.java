@@ -74,7 +74,7 @@ public class Command implements Comparable<Command>
 		}
 		catch (InvocationTargetException e)
 		{
-			throw new UnderlyingIntelliException(e);
+			throw new UnderlyingIntelliException(e.getCause());
 		}
 		catch (ReflectiveOperationException e)
 		{
