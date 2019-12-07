@@ -1,12 +1,14 @@
 package net.ddns.endercrypt.intellicommand.mapper.common.primitive;
 
+
 import net.ddns.endercrypt.intellicommand.exception.MapperConversionFailed;
 import net.ddns.endercrypt.intellicommand.mapper.ArgMapper;
 
-public class IntegerMapper implements ArgMapper
+
+public class IntegerMapper implements ArgMapper<Integer>
 {
 	@Override
-	public Object map(String text) throws MapperConversionFailed
+	public Integer map(String text) throws MapperConversionFailed
 	{
 		try
 		{
